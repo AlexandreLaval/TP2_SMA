@@ -11,7 +11,6 @@ class Agent(object):
     def update(self):
         pass
 
-
     def mangeur(self, proies):
         pass
 
@@ -49,30 +48,29 @@ class Agent(object):
             target.scale_to_length(target.length() * 0.1)
             self.body.acceleration += target
 
-
     def fear(self, predators):
-            steering = Vector2()
-            predatorCounter = 0
-            for other in predators:
-                if self.body.position.distance_to(other.pos) != 0:
-                    diff = Vector2(other.position.x - self.body.position.x, other.position.y - self.body.position.y)
-                    if diff.length() > 0.001:
-                        diff.scale_to_length(self.body.position.distance_squared_to(other.pos))
-                        predatorCounter += 1
-                        steering += diff
-                else:
-                    steering += Vector2(random.uniform(-5, 5), random.uniform(-5, 5))
+        steering = Vector2()
+        predatorCounter = 0
+        for other in predators:
+            if self.body.position.distance_to(other.pos) != 0:
+                diff = Vector2(other.position.x - self.body.position.x, other.position.y - self.body.position.y)
+                if diff.length() > 0.001:
+                    diff.scale_to_length(self.body.position.distance_squared_to(other.pos))
                     predatorCounter += 1
+                    steering += diff
+            else:
+                steering += Vector2(random.uniform(-5, 5), random.uniform(-5, 5))
+                predatorCounter += 1
 
-            if predatorCounter > 0:
-                steering /= predatorCounter
+        if predatorCounter > 0:
+            steering /= predatorCounter
 
-                steering += self.body.velocity
+            steering += self.body.velocity
 
-                if steering.length() > self.body.maxAcc:
-                    steering = steering.normalize()
-                    steering.scale_to_length(self.body.maxAcc)
-            return steering
+            if steering.length() > self.body.maxAcc:
+                steering = steering.normalize()
+                steering.scale_to_length(self.body.maxAcc)
+        return steering
 
     def show(self):
         self.body.show()

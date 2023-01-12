@@ -1,3 +1,7 @@
+import random
+
+from pygame import Vector2
+
 from Agent import Agent
 from CarnivoreBody import CarnivoreBody
 
@@ -7,12 +11,42 @@ class SuperPredateurAgent(Agent):
         super().__init__(body)
 
     def doMange(self, proie):
-        if type(proie).__name__ == CarnivoreBody.__class__.__name__:
+        print(type(proie).__name__)
+        if type(proie.body).__name__ == CarnivoreBody.__class__.__name__:
             return True
+
     def update(self):
+        proies, predateurs = self.filterPerception()
+        cible = None
+        distanceCible = 10000
+
+        for p in proies:
+            if p.position.distance_to(self.body.position) < distanceCible:
+                cible = p
+                distanceCible = p.position.distance_to(self.body.position)
+
+        if cible is not None:
+            force = cible.position - self.body.position
+            self.acceleration = force
+        else:
+            self.acceleration = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
+
+        if self.acceleration.length() > self.body.maxAcc:
+            self.acceleration.scale_to_length(self.body.maxAcc)
+
+        self.vitesse = self.body.velocity + self.acceleration
+
+        if self.vitesse.length() > self.body.maxSpeed:
+            self.vitesse.scale_to_length(self.body.maxSpeed)
+
+        self.position = self.body.position + self.vitesse
+
+        self.acceleration = Vector2(0, 0)
+
         if not self.body.isDead:
             preys, predateurs = self.filterPerception()
             self.computeForce(preys, predateurs)
+
     def filterPerception(self):
         proies = []
         predateurs = []
