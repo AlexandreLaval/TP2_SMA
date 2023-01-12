@@ -1,7 +1,10 @@
-from Bodies.Body import Body
+from Item import Item
 
 
-class VegetalBody(Body):
+class VegetalItem(Item):
     def __init__(self):
         super().__init__()
         self.color = (255, 255, 255)
+
+    def show(self):
+        super().show()

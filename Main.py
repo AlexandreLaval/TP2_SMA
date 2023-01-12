@@ -1,20 +1,18 @@
+import random
 import time
 
-from Agents.CarnivoreAgent import CarnivoreAgent
-from Agents.DecomposeurAgent import DecomposeurAgent
-from Agents.HerbivoreAgent import HerbivoreAgent
-from Agents.SuperPredateurAgent import SuperPredateurAgent
-from Agents.VegetalAgent import VegetalAgent
-from Bodies.VegetalBody import VegetalBody
-from Bodies.CarnivoreBody import CarnivoreBody
-from Bodies.DecomposeurBody import DecomposeurBody
-from Bodies.HerbivoreBody import HerbivoreBody
-from Bodies.SuperPredateurBody import SuperPredateurBody
-from Item import Item
+from CarnivoreAgent import CarnivoreAgent
+from DecomposeurAgent import DecomposeurAgent
+from HerbivoreAgent import HerbivoreAgent
+from SuperPredateurAgent import SuperPredateurAgent
+from CarnivoreBody import CarnivoreBody
+from DecomposeurBody import DecomposeurBody
+from HerbivoreBody import HerbivoreBody
+from SuperPredateurBody import SuperPredateurBody
 
 import core
-from Agents.Agent import Agent
-from Bodies.Body import Body
+from VegetalItem import VegetalItem
+from Jauge import Jauge
 
 
 def setup():
@@ -32,19 +30,26 @@ def setup():
     core.memory("timer", time.time())
 
     for i in range(0, 1):
-        core.memory('agents').append(SuperPredateurAgent(SuperPredateurBody()))
+        Sp = SuperPredateurAgent(SuperPredateurBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction()))
+        core.memory('agents').append(Sp)
+        core.memory('carnivores').append(Sp)
     for i in range(0, 1):
-        core.memory('agents').append(CarnivoreAgent(CarnivoreBody()))
+        core.memory('agents').append(CarnivoreAgent(CarnivoreBody(randomJaugeFaim(),randomJaugeFatigue(), randomJaugeReproduction())))
     for i in range(0, 1):
-        core.memory('agents').append(HerbivoreAgent(HerbivoreBody()))
+        core.memory('agents').append(HerbivoreAgent(HerbivoreBody(randomJaugeFaim(),randomJaugeFatigue(), randomJaugeReproduction())))
     for i in range(0, 1):
-        core.memory('agents').append(DecomposeurAgent(DecomposeurBody()))
+        core.memory('agents').append(DecomposeurAgent(DecomposeurBody(randomJaugeFaim(),randomJaugeFatigue(), randomJaugeReproduction())))
     for i in range(0,1):
-        core.memory('agents').append(VegetalAgent(VegetalBody()))
+        core.memory('items').append(VegetalItem())
 
     print("Setup END-----------")
 
-
+def randomJaugeFaim():
+    return Jauge(random.randint(0,1), random.randint(15,25), 2)
+def randomJaugeReproduction():
+    return Jauge(random.randint(0,5), random.randint(5,10), 2)
+def randomJaugeFatigue():
+    return Jauge(random.randint(0,5), random.randint(20,30), 1)
 def computePerception(a):
     a.body.fustrum.perceptionList = []
     for b in core.memory('agents'):
