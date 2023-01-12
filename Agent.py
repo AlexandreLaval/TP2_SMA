@@ -8,8 +8,6 @@ class Agent(object):
         self.body = body
         self.uuid = random.randint(100000, 999999999)
 
-
-
     def mangeur(self, proies):
         pass
 

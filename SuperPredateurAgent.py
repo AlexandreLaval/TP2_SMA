@@ -15,32 +15,33 @@ class SuperPredateurAgent(Agent):
             return True
 
     def update(self):
-        proies, predateurs = self.filterPerception()
-        cible = None
-        distanceCible = 10000
+        if not self.body.isDead:
+            proies, predateurs = self.filterPerception()
+            cible = None
+            distanceCible = 10000
 
-        for p in proies:
-            if p.position.distance_to(self.body.position) < distanceCible:
-                cible = p
-                distanceCible = p.position.distance_to(self.body.position)
+            for p in proies:
+                if p.position.distance_to(self.body.position) < distanceCible:
+                    cible = p
+                    distanceCible = p.position.distance_to(self.body.position)
 
-        if cible is not None:
-            force = cible.position - self.body.position
-            self.acceleration = force
-        else:
-            self.acceleration = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
+            if cible is not None:
+                force = cible.position - self.body.position
+                self.acceleration = force
+            else:
+                self.acceleration = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
 
-        if self.acceleration.length() > self.body.maxAcc:
-            self.acceleration.scale_to_length(self.body.maxAcc)
+            if self.acceleration.length() > self.body.maxAcc:
+                self.acceleration.scale_to_length(self.body.maxAcc)
 
-        self.vitesse = self.body.velocity + self.acceleration
+            self.vitesse = self.body.velocity + self.acceleration
 
-        if self.vitesse.length() > self.body.maxSpeed:
-            self.vitesse.scale_to_length(self.body.maxSpeed)
+            if self.vitesse.length() > self.body.maxSpeed:
+                self.vitesse.scale_to_length(self.body.maxSpeed)
 
-        self.body.position = self.body.position + self.vitesse
+            self.body.position = self.body.position + self.vitesse
 
-        self.acceleration = Vector2(0, 0)
+            self.acceleration = Vector2(0, 0)
 
     def filterPerception(self):
         proies = []

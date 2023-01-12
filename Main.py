@@ -68,8 +68,10 @@ def updateEnv():
             if a.uuid != b.uuid:
                 if (a.body.position.distance_to(b.body.position)) <= a.body.bodySize + b.body.bodySize:
                     if a.doMange(b):
-                        if b.body.isDead:
-                            core.memory("agents").remove(b)
+                        if(isinstance(a, DecomposeurAgent)):
+                            if b.body.isDead:
+                                core.memory("agents").remove(b)
+                                core.memory("items").append(VegetalItem())
                         else:
                             b.body.isDead = True
                             if hasattr(a, "jaugeFaim"):
