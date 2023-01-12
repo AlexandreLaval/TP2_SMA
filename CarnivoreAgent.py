@@ -11,10 +11,15 @@ class CarnivoreAgent(Agent):
     def __init__(self, body):
         super().__init__(body)
 
+    def doMange(self, proie):
+        if type(proie).__name__ == HerbivoreBody.__class__.__name__:
+            return True
+
     def update(self):
         if not self.body.isDead:
             preys, predateurs = self.filterPerception()
             self.computeForce(preys, predateurs)
+
     def filterPerception(self):
         proies = []
         predateurs = []

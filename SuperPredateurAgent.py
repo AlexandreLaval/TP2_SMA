@@ -6,6 +6,9 @@ class SuperPredateurAgent(Agent):
     def __init__(self, body):
         super().__init__(body)
 
+    def doMange(self, proie):
+        if type(proie).__name__ == CarnivoreBody.__class__.__name__:
+            return True
     def update(self):
         if not self.body.isDead:
             preys, predateurs = self.filterPerception()

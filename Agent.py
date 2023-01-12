@@ -24,11 +24,11 @@ class Agent(object):
     def computeForce(self, preys, predators):
         preysList = []
         for p in preys:
-            if p.pos.distance_to(self.body.position) < self.body.fustrum.radius:
+            if p.posistion.distance_to(self.body.position) < self.body.fustrum.radius:
                 preysList.append(p)
         predatorsList = []
         for p in predators:
-            if p.pos.distance_to(self.body.position) < self.body.fustrum.radius:
+            if p.posistion.distance_to(self.body.position) < self.body.fustrum.radius:
                 predatorsList.append(p)
 
         cible = None
