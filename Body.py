@@ -15,8 +15,8 @@ class Body(object):
         else:
             self.position = pos
         self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        self.fustrum = Fustrum(1000, self)
-        self.velocity = Vector2()
+        self.fustrum = Fustrum(100, self)
+        self.velocity = Vector2(random.uniform(-5, 5), random.uniform(-5, 5))
         self.acceleration = Vector2()
         self.maxAcc = 10
         self.maxSpeed = 20

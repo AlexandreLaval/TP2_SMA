@@ -29,7 +29,7 @@ class CarnivoreAgent(Agent):
             force = cible.position - self.body.position
             self.acceleration = force
         else:
-            self.acceleration = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
+            self.acceleration = Vector2(random.uniform(-5, 5), random.uniform(-5, 5))
 
         if self.acceleration.length() > self.body.maxAcc:
             self.acceleration.scale_to_length(self.body.maxAcc)

@@ -24,15 +24,15 @@ def setup():
     core.memory("items", [])
     core.memory("timer", time.time())
 
-    for i in range(0, 10):
+    for i in range(0, 1):
         core.memory('agents').append(SuperPredateurAgent(SuperPredateurBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 10):
+    for i in range(0, 2):
         core.memory('agents').append(CarnivoreAgent(CarnivoreBody(randomJaugeFaim(),randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 1):
+    for i in range(0, 5):
         core.memory('agents').append(HerbivoreAgent(HerbivoreBody(randomJaugeFaim(),randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 1):
+    for i in range(0, 5):
         core.memory('agents').append(DecomposeurAgent(DecomposeurBody(randomJaugeFaim(),randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0,1):
+    for i in range(0,5):
         core.memory('items').append(VegetalItem())
 
     print("Setup END-----------")
