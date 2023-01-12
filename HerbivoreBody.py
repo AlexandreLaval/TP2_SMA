@@ -6,6 +6,7 @@ import core
 from HerbivoreAgent import HerbivoreAgent
 from Body import Body
 from Jauge import Jauge
+from PersonalRandom import PersonalRandom
 
 
 class HerbivoreBody(Body):
@@ -22,5 +23,7 @@ class HerbivoreBody(Body):
 
     def reproduction(self):
         core.memory('agents').append(
-            HerbivoreAgent(HerbivoreBody(Jauge(0, 10, 1), Jauge(0, 10, 1), Jauge(0, 10, 1),
-                                         self.position + Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
+            HerbivoreAgent(HerbivoreBody(PersonalRandom.randomJaugeFaim(PersonalRandom()),
+                                         PersonalRandom.randomJaugeFatigue(PersonalRandom()),
+                                         PersonalRandom.randomJaugeReproduction(PersonalRandom()),
+                                         self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))

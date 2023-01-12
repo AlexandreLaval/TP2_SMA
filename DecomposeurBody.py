@@ -6,6 +6,7 @@ import core
 from DecomposeurAgent import DecomposeurAgent
 from Body import Body
 from Jauge import Jauge
+from PersonalRandom import PersonalRandom
 
 
 class DecomposeurBody(Body):
@@ -21,5 +22,7 @@ class DecomposeurBody(Body):
 
     def reproduction(self):
         core.memory('agents').append(
-            DecomposeurAgent(DecomposeurBody(Jauge(0, 10, 1), Jauge(0, 10, 1), Jauge(0, 10, 1),
-                                             self.position + Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
+            DecomposeurAgent(DecomposeurBody(PersonalRandom.randomJaugeFaim(PersonalRandom()),
+                                         PersonalRandom.randomJaugeFatigue(PersonalRandom()),
+                                         PersonalRandom.randomJaugeReproduction(PersonalRandom()),
+                                         self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))

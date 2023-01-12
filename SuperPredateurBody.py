@@ -3,6 +3,7 @@ import random
 from pygame import Vector2
 
 import core
+from PersonalRandom import PersonalRandom
 from SuperPredateurAgent import SuperPredateurAgent
 from Body import Body
 from Jauge import Jauge
@@ -20,5 +21,7 @@ class SuperPredateurBody(Body):
             core.Draw.circle((211, 211, 211), self.position, self.bodySize)
     def reproduction(self):
         core.memory('agents').append(
-            SuperPredateurAgent(SuperPredateurBody(Jauge(0, 10, 1), Jauge(0, 10, 1), Jauge(0, 10, 1),
-                                                   self.position + Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
+            SuperPredateurAgent(SuperPredateurBody(PersonalRandom.randomJaugeFaim(PersonalRandom()),
+                                         PersonalRandom.randomJaugeFatigue(PersonalRandom()),
+                                         PersonalRandom.randomJaugeReproduction(PersonalRandom()),
+                                         self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
