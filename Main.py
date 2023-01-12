@@ -24,10 +24,9 @@ def setup():
     core.memory("items", [])
     core.memory("timer", time.time())
 
-    for i in range(0, 1):
-        Sp = SuperPredateurAgent(SuperPredateurBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction()))
-        core.memory('agents').append(Sp)
-    for i in range(0, 1):
+    for i in range(0, 10):
+        core.memory('agents').append(SuperPredateurAgent(SuperPredateurBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
+    for i in range(0, 10):
         core.memory('agents').append(CarnivoreAgent(CarnivoreBody(randomJaugeFaim(),randomJaugeFatigue(), randomJaugeReproduction())))
     for i in range(0, 1):
         core.memory('agents').append(HerbivoreAgent(HerbivoreBody(randomJaugeFaim(),randomJaugeFatigue(), randomJaugeReproduction())))
@@ -67,7 +66,7 @@ def updateEnv():
     for a in core.memory("agents"):
         for b in core.memory("agents"):
             if a.uuid != b.uuid:
-                if (a.body.position.distance_to(b.body.position)) <= a.body.bodySize:
+                if (a.body.position.distance_to(b.body.position)) <= a.body.bodySize + b.body.bodySize:
                     if a.doMange(b):
                         if b.body.isDead:
                             core.memory("agents").remove(b)

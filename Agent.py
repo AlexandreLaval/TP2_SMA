@@ -8,8 +8,7 @@ class Agent(object):
         self.body = body
         self.uuid = random.randint(100000, 999999999)
 
-    def update(self):
-        pass
+
 
     def mangeur(self, proies):
         pass
@@ -27,7 +26,7 @@ class Agent(object):
                 preysList.append(p)
         predatorsList = []
         for p in predators:
-            if p.posistion.distance_to(self.body.position) < self.body.fustrum.radius:
+            if p.position.distance_to(self.body.position) < self.body.fustrum.radius:
                 predatorsList.append(p)
 
         cible = None

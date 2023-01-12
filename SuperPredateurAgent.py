@@ -11,8 +11,7 @@ class SuperPredateurAgent(Agent):
         super().__init__(body)
 
     def doMange(self, proie):
-        print(type(proie).__name__)
-        if type(proie.body).__name__ == CarnivoreBody.__class__.__name__:
+        if type(proie.body).__name__ == "CarnivoreBody":
             return True
 
     def update(self):
@@ -39,19 +38,15 @@ class SuperPredateurAgent(Agent):
         if self.vitesse.length() > self.body.maxSpeed:
             self.vitesse.scale_to_length(self.body.maxSpeed)
 
-        self.position = self.body.position + self.vitesse
+        self.body.position = self.body.position + self.vitesse
 
         self.acceleration = Vector2(0, 0)
-
-        if not self.body.isDead:
-            preys, predateurs = self.filterPerception()
-            self.computeForce(preys, predateurs)
 
     def filterPerception(self):
         proies = []
         predateurs = []
         for i in self.body.fustrum.perceptionList:
-            if type(i).__name__ == CarnivoreBody.__class__.__name__:
+            if type(i).__name__ == "CarnivoreBody":
                 if not i.isDead:
                     proies.append(i)
         return proies, predateurs
