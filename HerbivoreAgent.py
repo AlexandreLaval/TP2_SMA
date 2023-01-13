@@ -12,7 +12,7 @@ class HerbivoreAgent(Agent):
         super().__init__(body)
 
     def doMange(self, proie):
-        if type(proie).__name__ == "VegetalItem":
+        if isinstance(proie, VegetalItem):
             return True
 
     def update(self):

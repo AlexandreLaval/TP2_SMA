@@ -11,8 +11,9 @@ class SuperPredateurAgent(Agent):
         super().__init__(body)
 
     def doMange(self, proie):
-        if type(proie.body).__name__ == "CarnivoreBody":
-            return True
+        if hasattr(proie, 'body'):
+            if isinstance(proie.body, CarnivoreBody):
+                return True
 
     def update(self):
         if not self.body.isDead:

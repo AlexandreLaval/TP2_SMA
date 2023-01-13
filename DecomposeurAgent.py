@@ -10,9 +10,10 @@ class DecomposeurAgent(Agent):
         super().__init__(body)
 
     def doMange(self, proie):
-        if hasattr(proie, 'isDead'):
-            if proie.isDead:
-                return True
+        if(hasattr(proie, 'body')):
+            if hasattr(proie.body, 'isDead'):
+                if proie.body.isDead:
+                    return True
 
     def update(self):
         if not self.body.isDead:
