@@ -11,11 +11,8 @@ from PersonalRandom import PersonalRandom
 
 class CarnivoreBody(Body):
     def __init__(self, JaugeFaim, JaugeFatigue, JaugeReproduction, pos=None):
-        print("CarnivoreBody created")
-        print("At pos : " + str(pos))
         super().__init__(JaugeFaim, JaugeFatigue, JaugeReproduction, pos)
         self.color = (255, 0, 0)
-        self.velocity = Vector2(0, 0)
         self.bodySize = 10
 
     def show(self):

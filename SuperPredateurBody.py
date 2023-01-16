@@ -13,6 +13,7 @@ class SuperPredateurBody(Body):
     def __init__(self, JaugeFaim, JaugeFatigue, JaugeReproduction, pos = None):
         super().__init__(JaugeFaim, JaugeFatigue, JaugeReproduction, pos)
         self.color = (0, 0, 255)
+        self.bodySize = 14
 
     def show(self):
         if not self.isDead:

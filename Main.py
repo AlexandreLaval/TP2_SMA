@@ -1,6 +1,8 @@
 import random
 import time
 
+from pygame import Vector2
+
 from CarnivoreAgent import CarnivoreAgent
 from DecomposeurAgent import DecomposeurAgent
 from HerbivoreAgent import HerbivoreAgent
@@ -27,13 +29,13 @@ def setup():
     for i in range(0, 1):
         core.memory('agents').append(
             SuperPredateurAgent(SuperPredateurBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 2):
+    for i in range(0, 1):
         core.memory('agents').append(
             CarnivoreAgent(CarnivoreBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 5):
+    for i in range(0,1):
         core.memory('agents').append(
             HerbivoreAgent(HerbivoreBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 5):
+    for i in range(0, 1):
         core.memory('agents').append(
             DecomposeurAgent(DecomposeurBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
     for i in range(0, 10):
@@ -43,15 +45,15 @@ def setup():
 
 
 def randomJaugeFaim():
-    return Jauge(random.randint(0, 1), random.randint(20, 35), 2)
+    return Jauge(random.randint(0, 1), random.randint(100, 200), 1)
 
 
 def randomJaugeReproduction():
-    return Jauge(random.randint(0, 5), random.randint(5, 10), 2)
+    return Jauge(random.randint(0, 5), random.randint(100, 350), 1)
 
 
 def randomJaugeFatigue():
-    return Jauge(random.randint(0, 5), random.randint(20, 30), 1)
+    return Jauge(random.randint(0, 5), random.randint(200, 300), 1)
 
 
 def computePerception(a):
@@ -75,6 +77,12 @@ def applyDecision(a):
 
 def updateEnv(vegetalItem=None):
     for a in core.memory("agents"):
+        if a.body.isDead:
+            break
+        if isinstance(a, DecomposeurAgent):
+            if a.body.isDead:
+                core.memory("agents").remove(a)
+                continue
         for b in core.memory("agents"):
             if a.uuid != b.uuid:
                 if (a.body.position.distance_to(b.body.position)) <= a.body.bodySize + b.body.bodySize:
@@ -82,7 +90,7 @@ def updateEnv(vegetalItem=None):
                         if isinstance(a, DecomposeurAgent):
                             if b.body.isDead:
                                 core.memory("agents").remove(b)
-                                core.memory("items").append(VegetalItem())
+                                core.memory("items").append(VegetalItem(a.body.position+Vector2(random.randint(-1, 1), random.randint(-1, 1))))
                         else:
                             b.body.isDead = True
                             if hasattr(a, "jaugeFaim"):

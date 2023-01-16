@@ -17,6 +17,28 @@ class Agent(object):
     def symbiose(self, symbiote):
         pass
 
+    def wantToEat(self):
+        if self.body.jaugeFaim.value > self.body.jaugeFaim.max / 2:
+            return True
+
+    def filterPerception(self):
+        preys = []
+        predators = []
+        return preys, predators
+
+    def update(self):
+        preys, predators = self.filterPerception()
+        self.computeForce(preys, predators)
+
+        if len(preys) == 0:
+            if len(predators) == 0:
+                target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
+                while target.length() == 0:
+                    target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
+
+                target.scale_to_length(target.length())
+                self.body.acceleration += target
+
     def computeForce(self, preys, predators):
         preysList = []
         for p in preys:
@@ -34,25 +56,22 @@ class Agent(object):
                 cible = p
                 distanceCible = p.position.distance_to(self.body.position)
 
-        if cible is not None:
+        if len(predators) > 0:
+            f = self.fear(predatorsList)
+            self.body.acceleration = self.body.acceleration - f
+        elif cible is not None:
             force = cible.position - self.body.position
-            self.acceleration = force
-        else:
-            target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
-            while target.length() == 0:
-                target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
+            self.body.acceleration = force
 
-            target.scale_to_length(target.length() * 0.1)
-            self.body.acceleration += target
 
     def fear(self, predators):
         steering = Vector2()
         predatorCounter = 0
         for other in predators:
-            if self.body.position.distance_to(other.pos) != 0:
+            if self.body.position.distance_to(other.position) != 0:
                 diff = Vector2(other.position.x - self.body.position.x, other.position.y - self.body.position.y)
                 if diff.length() > 0.001:
-                    diff.scale_to_length(self.body.position.distance_squared_to(other.pos))
+                    diff.scale_to_length(self.body.position.distance_squared_to(other.position))
                     predatorCounter += 1
                     steering += diff
             else:

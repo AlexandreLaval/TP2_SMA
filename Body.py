@@ -16,10 +16,10 @@ class Body(object):
             self.position = pos
         self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
         self.fustrum = Fustrum(100, self)
-        self.velocity = Vector2(random.uniform(-5, 5), random.uniform(-5, 5))
+        self.velocity = Vector2()
         self.acceleration = Vector2()
-        self.maxAcc = 10
-        self.maxSpeed = 20
+        self.maxAcc = 5
+        self.maxSpeed = 5
         self.bodySize = 8
         self.jaugeFaim = JaugeFaim
         self.jaugeFatigue = JaugeFatigue

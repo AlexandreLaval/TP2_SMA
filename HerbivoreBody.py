@@ -3,6 +3,7 @@ import random
 from pygame import Vector2
 
 import core
+from Fustrum import Fustrum
 from HerbivoreAgent import HerbivoreAgent
 from Body import Body
 from Jauge import Jauge
@@ -13,6 +14,8 @@ class HerbivoreBody(Body):
     def __init__(self, JaugeFaim, JaugeFatigue, JaugeReproduction, pos = None):
         super().__init__(JaugeFaim, JaugeFatigue, JaugeReproduction, pos)
         self.color = (0, 255, 0)
+        self.maxAcc = 5
+        self.maxSpeed = 6
 
     def show(self):
         if not self.isDead:
