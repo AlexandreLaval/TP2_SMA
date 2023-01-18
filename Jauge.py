@@ -2,10 +2,10 @@ import time
 
 
 class Jauge(object):
-    def __init__(self, min, max, fulfillmentSpeed):
-        self.min = min
+    def __init__(self, max, fulfillmentSpeed):
+        self.min = 0
         self.max = max
-        self.value = min
+        self.value = 0
         self.time = time.time()
         self.fulfillmentSpeed = fulfillmentSpeed
         self.increase = True

@@ -1,0 +1,149 @@
+{
+   "duréeSimu": 600,
+   "SuperPredateur": {
+      "nb": 5,
+      "parametres": {
+            "vitesseMax": [
+               4,
+               8
+            ],
+            "accelerationMax": [
+               2,
+               6
+            ],
+            "MaxFaim": [
+               5,
+               20
+            ],
+            "MaxFatigue": [
+               5,
+               50
+            ],
+            "MaxReproduction": [
+               20,
+               50
+            ],
+            "MaxEsperance": [
+               20,
+               100
+            ]
+         }
+   },
+      "Herbivore": {
+         "nb": 20,
+         "parametres": {
+            "vitesseMax": [
+               3,
+               7
+            ],
+            "accelerationMax": [
+               1,
+               1
+            ],
+            "MaxFaim": [
+               10,
+               20
+            ],
+            "MaxFatigue": [
+               5,
+               30
+            ],
+            "MaxReproduction": [
+               10,
+               40
+            ],
+            "MaxEsperance": [
+               20,
+               100
+            ]
+         }
+      },
+    "Vegetal": {
+      "nb": 50,
+      "parametres": {
+            "vitesseMax": [
+               5,
+               5
+            ],
+            "accelerationMax": [
+               1,
+               1
+            ],
+            "MaxFaim": [
+               10,
+               20
+            ],
+            "MaxFatigue": [
+               5,
+               30
+            ],
+            "MaxReproduction": [
+               20,
+               20
+            ],
+            "MaxEsperance": [
+               100,
+               200
+            ]
+         }
+   },
+    "Carnivore": {
+      "nb": 10,
+      "parametres": {
+            "vitesseMax": [
+               4,
+               10
+            ],
+            "accelerationMax": [
+               1,
+               3
+            ],
+            "MaxFaim": [
+               20,
+               40
+            ],
+            "MaxFatigue": [
+               10,
+               20
+
+            ],
+            "MaxReproduction": [
+               10,
+               20
+            ],
+            "MaxEsperance": [
+               20,
+               100
+            ]
+         }
+   },
+   "Decomposeur": {
+     "nb": 20,
+     "parametres": {
+       "vitesseMax": [
+         1,
+         2
+       ],
+       "accelerationMax": [
+         1,
+         1
+       ],
+       "MaxFaim": [
+         20,
+         40
+       ],
+       "MaxFatigue": [
+         10,
+         10
+       ],
+       "MaxReproduction": [
+         50,
+         60
+       ],
+       "MaxEsperance": [
+         20,
+         100
+       ]
+     }
+   }
+}

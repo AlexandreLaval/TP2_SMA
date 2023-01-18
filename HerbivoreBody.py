@@ -7,15 +7,28 @@ from Fustrum import Fustrum
 from HerbivoreAgent import HerbivoreAgent
 from Body import Body
 from Jauge import Jauge
-from PersonalRandom import PersonalRandom
 
 
 class HerbivoreBody(Body):
-    def __init__(self, JaugeFaim, JaugeFatigue, JaugeReproduction, pos = None):
-        super().__init__(JaugeFaim, JaugeFatigue, JaugeReproduction, pos)
+    def __init__(self, pos = None):
+        super().__init__(pos)
         self.color = (0, 255, 0)
-        self.maxAcc = 5
-        self.maxSpeed = 6
+        self.jaugeFaim = Jauge(random.randint(core.memory("scenario")['Herbivore']['parametres']['MaxFaim'][0],
+                                              core.memory("scenario")['Herbivore']['parametres']['MaxFaim'][1]),
+                               1)
+        self.jaugeFatigue = Jauge(random.randint(core.memory("scenario")['Herbivore']['parametres']['MaxFatigue'][0],
+                                                 core.memory("scenario")['Herbivore']['parametres']['MaxFatigue'][1]),
+                                  1)
+        self.jaugeReproduction = Jauge(
+            random.randint(core.memory("scenario")['Herbivore']['parametres']['MaxReproduction'][0],
+                           core.memory("scenario")['Herbivore']['parametres']['MaxReproduction'][1]),
+            1)
+        self.maxAcc = random.randint(core.memory("scenario")['Herbivore']['parametres']['accelerationMax'][0],
+                                     core.memory("scenario")['Herbivore']['parametres']['accelerationMax'][1])
+        self.maxSpeed = random.randint(core.memory("scenario")['Herbivore']['parametres']['vitesseMax'][0],
+                                       core.memory("scenario")['Herbivore']['parametres']['vitesseMax'][1])
+        self.esperance = random.randint(core.memory("scenario")['Herbivore']['parametres']['MaxEsperance'][0],
+                                        core.memory("scenario")['Herbivore']['parametres']['MaxEsperance'][1])
 
     def show(self):
         if not self.isDead:
@@ -26,7 +39,4 @@ class HerbivoreBody(Body):
 
     def reproduction(self):
         core.memory('agents').append(
-            HerbivoreAgent(HerbivoreBody(PersonalRandom.randomJaugeFaim(PersonalRandom()),
-                                         PersonalRandom.randomJaugeFatigue(PersonalRandom()),
-                                         PersonalRandom.randomJaugeReproduction(PersonalRandom()),
-                                         self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
+            HerbivoreAgent(HerbivoreBody(self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))

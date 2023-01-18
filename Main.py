@@ -1,5 +1,6 @@
 import random
 import time
+import json
 
 from pygame import Vector2
 
@@ -18,43 +19,36 @@ from Jauge import Jauge
 
 
 def setup():
+    loadJsonScenario()
     print("Setup START---------")
     core.fps = 30
-    core.WINDOW_SIZE = [600, 600]
+    core.WINDOW_SIZE = [600, 700]
 
     core.memory("agents", [])
     core.memory("items", [])
     core.memory("timer", time.time())
+    print(core.memory("scenario")['SuperPredateur']['nb'])
 
-    for i in range(0, 1):
-        core.memory('agents').append(
-            SuperPredateurAgent(SuperPredateurBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 1):
-        core.memory('agents').append(
-            CarnivoreAgent(CarnivoreBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0,1):
-        core.memory('agents').append(
-            HerbivoreAgent(HerbivoreBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 1):
-        core.memory('agents').append(
-            DecomposeurAgent(DecomposeurBody(randomJaugeFaim(), randomJaugeFatigue(), randomJaugeReproduction())))
-    for i in range(0, 10):
+    for i in range(0, core.memory("scenario")['SuperPredateur']['nb']):
+        core.memory('agents').append(SuperPredateurAgent(SuperPredateurBody()))
+    for i in range(0, core.memory("scenario")['Carnivore']['nb']):
+        core.memory('agents').append(CarnivoreAgent(CarnivoreBody()))
+    for i in range(0,core.memory("scenario")['Decomposeur']['nb']):
+        core.memory('agents').append(HerbivoreAgent(HerbivoreBody()))
+    for i in range(0, core.memory("scenario")['Herbivore']['nb']):
+        core.memory('agents').append(DecomposeurAgent(DecomposeurBody()))
+    for i in range(0, core.memory("scenario")['Vegetal']['nb']):
         core.memory('items').append(VegetalItem())
 
     print("Setup END-----------")
 
-
-def randomJaugeFaim():
-    return Jauge(random.randint(0, 1), random.randint(100, 200), 1)
-
-
-def randomJaugeReproduction():
-    return Jauge(random.randint(0, 5), random.randint(100, 350), 1)
-
-
-def randomJaugeFatigue():
-    return Jauge(random.randint(0, 5), random.randint(200, 300), 1)
-
+def loadJsonScenario():
+    # Open the file
+    a = "scenario.json"
+    with open(a) as json_file:
+        # Load the JSON data from the file
+        data = json.load(json_file)
+    core.memory("scenario", data)
 
 def computePerception(a):
     a.body.fustrum.perceptionList = []
@@ -73,9 +67,10 @@ def computeDecision(a):
 
 def applyDecision(a):
     a.body.update()
+    #a.body.bordure(core.WINDOW_SIZE)
 
 
-def updateEnv(vegetalItem=None):
+def updateEnv():
     for a in core.memory("agents"):
         if a.body.isDead:
             break
@@ -121,6 +116,7 @@ def run():
 
     for agent in core.memory("agents"):
         applyDecision(agent)
+
 
     updateEnv()
 

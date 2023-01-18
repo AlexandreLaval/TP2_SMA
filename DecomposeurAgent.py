@@ -3,11 +3,13 @@ import random
 from pygame import Vector2
 
 from Agent import Agent
+from Fustrum import Fustrum
 
 
 class DecomposeurAgent(Agent):
     def __init__(self, body):
         super().__init__(body)
+        self.fustrum = Fustrum(1000, self)
 
     def doMange(self, proie):
         if(hasattr(proie, 'body')):

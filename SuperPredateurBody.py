@@ -3,17 +3,33 @@ import random
 from pygame import Vector2
 
 import core
-from PersonalRandom import PersonalRandom
+
 from SuperPredateurAgent import SuperPredateurAgent
 from Body import Body
 from Jauge import Jauge
 
 
 class SuperPredateurBody(Body):
-    def __init__(self, JaugeFaim, JaugeFatigue, JaugeReproduction, pos = None):
-        super().__init__(JaugeFaim, JaugeFatigue, JaugeReproduction, pos)
+    def __init__(self, pos = None):
+        super().__init__(pos)
         self.color = (0, 0, 255)
         self.bodySize = 14
+        self.jaugeFaim = Jauge(random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxFaim'][0],
+                                              core.memory("scenario")['SuperPredateur']['parametres']['MaxFaim'][1]),
+                               1)
+        self.jaugeFatigue = Jauge(random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxFatigue'][0],
+                                                 core.memory("scenario")['SuperPredateur']['parametres']['MaxFatigue'][1]),
+                                  1)
+        self.jaugeReproduction = Jauge(
+            random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxReproduction'][0],
+                           core.memory("scenario")['SuperPredateur']['parametres']['MaxReproduction'][1]),
+            1)
+        self.maxAcc = random.randint(core.memory("scenario")['SuperPredateur']['parametres']['accelerationMax'][0],
+                                     core.memory("scenario")['SuperPredateur']['parametres']['accelerationMax'][1])
+        self.maxSpeed = random.randint(core.memory("scenario")['SuperPredateur']['parametres']['vitesseMax'][0],
+                                       core.memory("scenario")['SuperPredateur']['parametres']['vitesseMax'][1])
+        self.esperance = random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxEsperance'][0],
+                                        core.memory("scenario")['SuperPredateur']['parametres']['MaxEsperance'][1])
 
     def show(self):
         if not self.isDead:
@@ -22,7 +38,4 @@ class SuperPredateurBody(Body):
             core.Draw.circle((211, 211, 211), self.position, self.bodySize)
     def reproduction(self):
         core.memory('agents').append(
-            SuperPredateurAgent(SuperPredateurBody(PersonalRandom.randomJaugeFaim(PersonalRandom()),
-                                         PersonalRandom.randomJaugeFatigue(PersonalRandom()),
-                                         PersonalRandom.randomJaugeReproduction(PersonalRandom()),
-                                         self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
+            SuperPredateurAgent(SuperPredateurBody(self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))

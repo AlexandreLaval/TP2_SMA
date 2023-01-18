@@ -9,7 +9,7 @@ from Jauge import Jauge
 
 
 class Body(object):
-    def __init__(self, JaugeFaim, JaugeFatigue, JaugeReproduction, pos=None):
+    def __init__(self, pos=None):
         if (pos is None):
             self.position = Vector2(random.randint(0, core.WINDOW_SIZE[0]), random.randint(0, core.WINDOW_SIZE[1]))
         else:
@@ -18,12 +18,7 @@ class Body(object):
         self.fustrum = Fustrum(100, self)
         self.velocity = Vector2()
         self.acceleration = Vector2()
-        self.maxAcc = 5
-        self.maxSpeed = 5
         self.bodySize = 8
-        self.jaugeFaim = JaugeFaim
-        self.jaugeFatigue = JaugeFatigue
-        self.jaugeReproduction = JaugeReproduction
         self.birthTime = time.time()
         self.esperance = 1000  # en seconde
         self.isDead = False
@@ -42,7 +37,6 @@ class Body(object):
 
                 self.acceleration = Vector2(0, 0)
                 self.position += self.velocity
-                self.edge()
                 self.checkAll()
                 self.jaugeReproduction.evolution()
                 self.jaugeFaim.evolution()
@@ -90,7 +84,10 @@ class Body(object):
         self.jaugeReproduction.evolution()
 
     def show(self):
-        pass
+        if self.isSleeping:
+            pass
+        if self.isStarving:
+            pass
 
     def edge(self):
         if self.position.x <= self.bodySize:
@@ -101,3 +98,16 @@ class Body(object):
             self.velocity.y *= -1
         if self.position.y + self.bodySize >= core.WINDOW_SIZE[1]:
             self.velocity.y *= -1
+
+    # def bordure(self, fenetre):
+    #     if self.position.y < 0:
+    #         self.position.y = fenetre[1]
+    #
+    #     if self.position.y > fenetre[1]:
+    #         self.position.y = 0
+    #
+    #     if self.position.x < 0:
+    #         self.position.x = fenetre[0]
+    #
+    #     if self.position.x > fenetre[0]:
+    #         self.position.x = 0

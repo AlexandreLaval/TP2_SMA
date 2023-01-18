@@ -4,11 +4,13 @@ from pygame import Vector2
 
 from Agent import Agent
 from CarnivoreBody import CarnivoreBody
+from Fustrum import Fustrum
 
 
 class SuperPredateurAgent(Agent):
     def __init__(self, body):
         super().__init__(body)
+        self.fustrum = Fustrum(130, self)
 
     def doMange(self, proie):
         if hasattr(proie, 'body'):

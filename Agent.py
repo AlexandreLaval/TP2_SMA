@@ -63,6 +63,26 @@ class Agent(object):
             force = cible.position - self.body.position
             self.body.acceleration = force
 
+    def fuite(self, predators):
+        steering = Vector2()
+        if len(predators) > 0:
+            prey = sorted(predators, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
+            steering = prey.position + self.body.position
+        return steering
+
+    def symbiose(self, friends):
+        steering = Vector2()
+        if len(friends) > 0:
+            prey = sorted(friends, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
+            steering = prey.position - self.body.position
+        return steering
+
+    def hunt(self, preys):
+        steering = Vector2()
+        if len(preys) > 0:
+            prey = sorted(preys, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
+            steering = prey.position - self.body.position
+        return steering
 
     def fear(self, predators):
         steering = Vector2()
