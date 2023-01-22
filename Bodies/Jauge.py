@@ -12,10 +12,8 @@ class Jauge(object):
 
     def evolution(self):
         if self.increase:
-            if self.value < self.max:
-                self.value += self.fulfillmentSpeed * (time.time() - self.time)
-                self.time = time.time()
+            self.value += self.fulfillmentSpeed * (time.time() - self.time)
+            self.time = time.time()
         else:
-            if self.value > self.min:
-                self.value -= self.fulfillmentSpeed * (time.time() - self.time)
-                self.time = time.time()
+            self.value -= self.fulfillmentSpeed * (time.time() - self.time) * 2
+            self.time = time.time()

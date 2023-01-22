@@ -4,8 +4,8 @@ import time
 from pygame import Vector2
 
 import core
-from Fustrum import Fustrum
-from Jauge import Jauge
+from Bodies.Fustrum import Fustrum
+from Bodies.Jauge import Jauge
 
 
 class Body(object):
@@ -24,8 +24,14 @@ class Body(object):
         self.isDead = False
         self.isSleeping = False
         self.isStarving = False
+        self.jaugeFatigue = None
+        self.jaugeFaim = None
+        self.jaugeReproduction = None
+        self.maxSpeed = None
+        self.maxAcc = None
 
     def update(self):
+        self.edge()
         if not self.isDead:
             if not self.isSleeping:
                 if self.acceleration.length() > self.maxAcc:
@@ -67,14 +73,15 @@ class Body(object):
     def checkJaugeFatigue(self):
         if self.jaugeFatigue.value >= self.jaugeFatigue.max:
             self.jaugeFatigue.value = self.jaugeFatigue.max
+            self.jaugeFatigue.increase = False
             self.isSleeping = True
         elif self.jaugeFatigue.value <= self.jaugeFatigue.min:
             self.jaugeFatigue.value = self.jaugeFatigue.min
+            self.jaugeFatigue.increase = True
             self.isSleeping = False
 
     def checkJaugeFaim(self):
         if self.jaugeFaim.value >= self.jaugeFaim.max:
-            print("je suis mort de faim")
             self.jaugeFaim.value = self.jaugeFaim.max
             self.isDead = True
 
@@ -84,9 +91,6 @@ class Body(object):
         self.jaugeReproduction.evolution()
 
     def show(self):
-        if self.isSleeping:
-            pass
-        if self.isStarving:
             pass
 
     def edge(self):
@@ -99,15 +103,3 @@ class Body(object):
         if self.position.y + self.bodySize >= core.WINDOW_SIZE[1]:
             self.velocity.y *= -1
 
-    # def bordure(self, fenetre):
-    #     if self.position.y < 0:
-    #         self.position.y = fenetre[1]
-    #
-    #     if self.position.y > fenetre[1]:
-    #         self.position.y = 0
-    #
-    #     if self.position.x < 0:
-    #         self.position.x = fenetre[0]
-    #
-    #     if self.position.x > fenetre[0]:
-    #         self.position.x = 0

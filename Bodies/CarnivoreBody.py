@@ -3,9 +3,9 @@ import random
 from pygame import Vector2
 
 import core
-from Body import Body
-from Fustrum import Fustrum
-from Jauge import Jauge
+from Bodies.Body import Body
+from Bodies.Fustrum import Fustrum
+from Bodies.Jauge import Jauge
 
 
 class CarnivoreBody(Body):
@@ -33,12 +33,13 @@ class CarnivoreBody(Body):
 
     def show(self):
         if not self.isDead:
+            if self.isSleeping:
+                core.Draw.text(self.color, "Dodo", Vector2(self.position.x - 10, self.position.y - 30), taille=15)
             core.Draw.circle(self.color, self.position, self.bodySize)
         else:
-            pass
             core.Draw.circle((211, 211, 211), self.position, self.bodySize)
 
     def reproduction(self):
-        from CarnivoreAgent import CarnivoreAgent
+        from Agents.CarnivoreAgent import CarnivoreAgent
         c = CarnivoreAgent(CarnivoreBody(self.position + Vector2(random.randint(-1, 1), random.randint(-1, 1))))
         core.memory('agents').append(c)

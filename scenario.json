@@ -133,8 +133,8 @@
          40
        ],
        "MaxFatigue": [
-         10,
-         10
+         30,
+         45
        ],
        "MaxReproduction": [
          50,

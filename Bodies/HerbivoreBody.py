@@ -3,15 +3,16 @@ import random
 from pygame import Vector2
 
 import core
-from Fustrum import Fustrum
-from HerbivoreAgent import HerbivoreAgent
-from Body import Body
-from Jauge import Jauge
+from Agents.HerbivoreAgent import HerbivoreAgent
+from Bodies.Body import Body
+from Bodies.Fustrum import Fustrum
+from Bodies.Jauge import Jauge
 
 
 class HerbivoreBody(Body):
     def __init__(self, pos = None):
         super().__init__(pos)
+        self.fustrum = Fustrum(110, self)
         self.color = (0, 255, 0)
         self.jaugeFaim = Jauge(random.randint(core.memory("scenario")['Herbivore']['parametres']['MaxFaim'][0],
                                               core.memory("scenario")['Herbivore']['parametres']['MaxFaim'][1]),
@@ -32,6 +33,8 @@ class HerbivoreBody(Body):
 
     def show(self):
         if not self.isDead:
+            if self.isSleeping:
+                core.Draw.text(self.color, "Dodo", Vector2(self.position.x - 10, self.position.y - 30), taille=15)
             core.Draw.circle(self.color, self.position, self.bodySize)
         else:
             core.Draw.circle((211, 211, 211), self.position, self.bodySize)

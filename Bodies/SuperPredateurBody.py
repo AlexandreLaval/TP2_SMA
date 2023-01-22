@@ -4,9 +4,9 @@ from pygame import Vector2
 
 import core
 
-from SuperPredateurAgent import SuperPredateurAgent
-from Body import Body
-from Jauge import Jauge
+from Agents.SuperPredateurAgent import SuperPredateurAgent
+from Bodies.Body import Body
+from Bodies.Jauge import Jauge
 
 
 class SuperPredateurBody(Body):
@@ -33,6 +33,8 @@ class SuperPredateurBody(Body):
 
     def show(self):
         if not self.isDead:
+            if self.isSleeping:
+                core.Draw.text(self.color, "Dodo", Vector2(self.position.x - 10, self.position.y - 30), taille=15)
             core.Draw.circle(self.color, self.position, self.bodySize)
         else:
             core.Draw.circle((211, 211, 211), self.position, self.bodySize)
