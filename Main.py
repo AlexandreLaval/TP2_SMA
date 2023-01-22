@@ -1,11 +1,13 @@
-import core
-import random
-import time
 import json
+import random
+import threading
+import time
 
+import matplotlib.pyplot as plt
+import pygame.time
 from pygame import Vector2
 
-
+import core
 from Agents.CarnivoreAgent import CarnivoreAgent
 from Agents.DecomposeurAgent import DecomposeurAgent
 from Agents.HerbivoreAgent import HerbivoreAgent
@@ -39,6 +41,8 @@ def setup():
     for i in range(0, core.memory("scenario")['Vegetal']['nb']):
         core.memory('items').append(VegetalItem())
 
+    plotThread = threading.Thread(target=drawEvolution, args=())
+    plotThread.start()
     print("Setup END-----------")
 
 
@@ -98,6 +102,23 @@ def updateEnv():
                         if hasattr(a, "jaugeFaim"):
                             a.body.jaugeFaim.value = a.body.jaugeFaim.min
 
+
+def getBestIndividual():
+    bestGenStats = 0
+    bestAgent = None
+    for a in core.memory('agents'):
+        if a.body.quantumGenetetic() > bestGenStats:
+            bestGenStats = a.body.quantumGenetetic()
+            bestAgent = a
+    return bestAgent
+
+def showBestIndividual():
+    agent = getBestIndividual()
+    print("Le meilleur individu est -----------")
+    print("un agent de type : " + str(agent.__class__.__name__ ))
+    print("avec un core génétique de : " + str(int(agent.body.quantumGenetetic())))
+    print("-----------")
+
 def showAgentsRepartition():
     herbivores = []
     carnivores = []
@@ -120,11 +141,71 @@ def showAgentsRepartition():
     print("decomposeurs: " + str(int(len(decomposeurs) / len(core.memory('agents')) * 100)) + "%")
     print("Stats END-----------")
 
+
+history_time = []
+history_data = {"Herbivores": [], "Vegetaux": [], "Carnivores": [], "SuperPredateurs": [], "Decomposeurs": [],
+                'Morts': []}
+
+
+def drawEvolution():
+    while True:
+        global history_data
+        global history_time
+
+        data = {'Herbivores': 0, 'Vegetaux': 0, 'Carnivores': 0, 'SuperPredateurs': 0, 'Decomposeurs': 0, 'Morts': 0}
+
+        for a in core.memory("agents"):
+            if a.body.isDead:
+                data["Morts"] += 1
+            elif isinstance(a, HerbivoreAgent):
+                data["Herbivores"] += 1
+            elif isinstance(a, CarnivoreAgent):
+                data["Carnivores"] += 1
+            elif isinstance(a, SuperPredateurAgent):
+                data["SuperPredateurs"] += 1
+            elif isinstance(a, DecomposeurAgent):
+                data["Decomposeurs"] += 1
+
+        for i in core.memory("items"):
+            data["Vegetaux"] += 1
+
+        plt.cla()
+        current_time = pygame.time.get_ticks() / 1000
+        history_time.append(current_time)
+        for key in history_data.keys():
+            history_data[key].append(data[key])
+            if key == "Morts":
+                plt.plot(history_time, history_data[key], 'grey', label=key)
+            elif key == "Herbivores":
+                plt.plot(history_time, history_data[key], 'green', label=key)
+            elif key == "Carnivores":
+                plt.plot(history_time, history_data[key], 'red', label=key)
+            elif key == "SuperPredateurs":
+                plt.plot(history_time, history_data[key], 'blue', label=key)
+            elif key == "Decomposeurs":
+                plt.plot(history_time, history_data[key], 'brown', label=key)
+            elif key == "Vegetaux":
+                plt.plot(history_time, history_data[key], 'olive', label=key)
+
+        plt.xlabel("Temps en secondes")
+        plt.ylabel("Nombre d\'individu")
+        plt.title("Evolution du nombre d\'individu en fonction du temps")
+        plt.legend(loc="center left")
+        plt.ion()
+        plt.draw()
+        plt.show()
+        plt.pause(0.001)
+
+
 def run():
     core.cleanScreen()
 
     if core.getMouseLeftClick():
         showAgentsRepartition()
+
+    if core.getMouseRightClick():
+        showBestIndividual()
+
     # Display
     for item in core.memory("items"):
         item.show()

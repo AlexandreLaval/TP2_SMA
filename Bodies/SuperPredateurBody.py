@@ -28,8 +28,8 @@ class SuperPredateurBody(Body):
                                      core.memory("scenario")['SuperPredateur']['parametres']['accelerationMax'][1])
         self.maxSpeed = random.randint(core.memory("scenario")['SuperPredateur']['parametres']['vitesseMax'][0],
                                        core.memory("scenario")['SuperPredateur']['parametres']['vitesseMax'][1])
-        self.esperance = random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxEsperance'][0],
-                                        core.memory("scenario")['SuperPredateur']['parametres']['MaxEsperance'][1])
+        self.esperance = random.randint(core.memory("scenario")['SuperPredateur']['parametres']['esperance'][0],
+                                        core.memory("scenario")['SuperPredateur']['parametres']['esperance'][1])
 
     def show(self):
         if not self.isDead:

@@ -23,7 +23,7 @@
                20,
                50
             ],
-            "MaxEsperance": [
+            "esperance": [
                20,
                100
             ]
@@ -52,7 +52,7 @@
                10,
                40
             ],
-            "MaxEsperance": [
+            "esperance": [
                20,
                100
             ]
@@ -81,7 +81,7 @@
                20,
                20
             ],
-            "MaxEsperance": [
+            "esperance": [
                100,
                200
             ]
@@ -111,7 +111,7 @@
                10,
                20
             ],
-            "MaxEsperance": [
+            "esperance": [
                20,
                100
             ]
@@ -140,7 +140,7 @@
          50,
          60
        ],
-       "MaxEsperance": [
+       "esperance": [
          20,
          100
        ]

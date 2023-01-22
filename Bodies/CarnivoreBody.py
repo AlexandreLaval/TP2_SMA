@@ -28,8 +28,8 @@ class CarnivoreBody(Body):
                                      core.memory("scenario")['Carnivore']['parametres']['accelerationMax'][1])
         self.maxSpeed = random.randint(core.memory("scenario")['Carnivore']['parametres']['vitesseMax'][0],
                                        core.memory("scenario")['Carnivore']['parametres']['vitesseMax'][1])
-        self.esperance = random.randint(core.memory("scenario")['Carnivore']['parametres']['MaxEsperance'][0],
-                                        core.memory("scenario")['Carnivore']['parametres']['MaxEsperance'][1])
+        self.esperance = random.randint(core.memory("scenario")['Carnivore']['parametres']['esperance'][0],
+                                        core.memory("scenario")['Carnivore']['parametres']['esperance'][1])
 
     def show(self):
         if not self.isDead:

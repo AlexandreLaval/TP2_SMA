@@ -30,6 +30,9 @@ class Body(object):
         self.maxSpeed = None
         self.maxAcc = None
 
+    def quantumGenetetic(self):
+        return (self.maxAcc*10) + (self.maxSpeed*10) + (100 - self.jaugeReproduction.max) + (self.esperance*3) + self.jaugeFatigue.max + self.jaugeFaim.max
+
     def update(self):
         #self.edge()
         if not self.isDead:
