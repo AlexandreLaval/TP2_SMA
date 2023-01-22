@@ -17,26 +17,26 @@ class CarnivoreAgent(Agent):
                 return True
 
     def update(self):
-        preys, predators, symbiotics = self.filterPerception()
-        self.computeForce(preys, predators, symbiotics)
+        preys, predators = self.filterPerception()
+        self.computeForce(preys, predators)
 
-    def computeForce(self, preys, predators, symbiotics):
+    def computeForce(self, preys, predators):
         flee = self.flee(predators) * 2
         hunt = self.hunt(preys) * 1
-        if len(predators) > 0:
-            symbiosis = self.symbiosis(symbiotics) * 2
-        else:
-            symbiosis = (0, 0)
 
-        if flee + hunt + symbiosis == (0, 0):
-            self.body.acceleration += Vector2(random.randint(-5, 5), random.randint(-5, 5))
+        if flee + hunt == (0, 0):
+            target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
+            while target.length() == 0:
+                target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
+
+            target.scale_to_length(target.length())
+            self.body.acceleration += target
         else:
-            self.body.acceleration += hunt + flee + symbiosis
+            self.body.acceleration += hunt + flee
 
     def filterPerception(self):
         preys = []
         predateurs = []
-        symbiotics = []
         for i in self.body.fustrum.perceptionList:
             if isinstance(i, HerbivoreBody):
                 if not i.isDead:
@@ -44,17 +44,25 @@ class CarnivoreAgent(Agent):
             if isinstance(i, SuperPredateurBody):
                 if not i.isDead:
                     predateurs.append(i)
-            if isinstance(i, self.body.__class__):
-                if not i.isDead:
-                    symbiotics.append(i)
-        return preys, predateurs, symbiotics
-
+        return preys, predateurs
     def hunt(self, preys):
-        steering = Vector2()
-        if len(preys) > 0:
-            prey = sorted(preys, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
-            steering = prey.position - self.body.position
-        return steering
+        cible = None
+        distanceCible = 10000
+        force = Vector2()
+        for p in preys:
+            if p.position.distance_to(self.body.position) < distanceCible:
+                cible = p
+                distanceCible = p.position.distance_to(self.body.position)
+
+        if cible is not None:
+            force = cible.position - self.body.position
+        return force
+
+        # steering = Vector2()
+        # if len(preys) > 0:
+        #     prey = sorted(preys, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
+        #     steering = prey.position - self.body.position
+        # return steering
 
     def flee(self, predators):
         steering = Vector2()

@@ -31,7 +31,7 @@ class Body(object):
         self.maxAcc = None
 
     def update(self):
-        self.edge()
+        #self.edge()
         if not self.isDead:
             if not self.isSleeping:
                 if self.acceleration.length() > self.maxAcc:
@@ -91,15 +91,27 @@ class Body(object):
         self.jaugeReproduction.evolution()
 
     def show(self):
-            pass
+        pass
 
     def edge(self):
-        if self.position.x <= self.bodySize:
+        if self.position.x <= self.maxAcc + self.bodySize:
             self.velocity.x *= -1
-        if self.position.x + self.bodySize >= core.WINDOW_SIZE[0]:
+        if self.position.x + self.maxAcc + self.bodySize >= core.WINDOW_SIZE[0]:
             self.velocity.x *= -1
-        if self.position.y <= self.bodySize:
+        if self.position.y <= self.maxAcc + self.bodySize:
             self.velocity.y *= -1
-        if self.position.y + self.bodySize >= core.WINDOW_SIZE[1]:
+        if self.position.y + self.maxAcc + self.bodySize >= core.WINDOW_SIZE[1]:
             self.velocity.y *= -1
 
+    def bordure(self, fenetre):
+        if self.position.y < 0:
+            self.position.y = fenetre[1]
+
+        if self.position.y > fenetre[1]:
+            self.position.y = 0
+
+        if self.position.x < 0:
+            self.position.x = fenetre[0]
+
+        if self.position.x > fenetre[0]:
+            self.position.x = 0

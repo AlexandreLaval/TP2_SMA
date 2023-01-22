@@ -32,9 +32,9 @@ def setup():
         core.memory('agents').append(SuperPredateurAgent(SuperPredateurBody()))
     for i in range(0, core.memory("scenario")['Carnivore']['nb']):
         core.memory('agents').append(CarnivoreAgent(CarnivoreBody()))
-    for i in range(0, core.memory("scenario")['Decomposeur']['nb']):
-        core.memory('agents').append(HerbivoreAgent(HerbivoreBody()))
     for i in range(0, core.memory("scenario")['Herbivore']['nb']):
+        core.memory('agents').append(HerbivoreAgent(HerbivoreBody()))
+    for i in range(0, core.memory("scenario")['Decomposeur']['nb']):
         core.memory('agents').append(DecomposeurAgent(DecomposeurBody()))
     for i in range(0, core.memory("scenario")['Vegetal']['nb']):
         core.memory('items').append(VegetalItem())
@@ -68,7 +68,7 @@ def computeDecision(a):
 
 def applyDecision(a):
     a.body.update()
-    # a.body.bordure(core.WINDOW_SIZE)
+    a.body.bordure(core.WINDOW_SIZE)
 
 
 def updateEnv():

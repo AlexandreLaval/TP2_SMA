@@ -25,7 +25,12 @@ class SuperPredateurAgent(Agent):
         hunt = self.hunt(preys) * 1
 
         if  hunt == (0, 0):
-            self.body.acceleration += Vector2(random.randint(-5, 5), random.randint(-5, 5))
+            target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
+            while target.length() == 0:
+                target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
+
+            target.scale_to_length(target.length())
+            self.body.acceleration += target
         else:
             self.body.acceleration += hunt
 

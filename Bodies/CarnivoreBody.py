@@ -43,3 +43,5 @@ class CarnivoreBody(Body):
         from Agents.CarnivoreAgent import CarnivoreAgent
         c = CarnivoreAgent(CarnivoreBody(self.position + Vector2(random.randint(-1, 1), random.randint(-1, 1))))
         core.memory('agents').append(c)
+
+
