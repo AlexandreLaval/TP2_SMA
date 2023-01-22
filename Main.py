@@ -98,10 +98,33 @@ def updateEnv():
                         if hasattr(a, "jaugeFaim"):
                             a.body.jaugeFaim.value = a.body.jaugeFaim.min
 
+def showAgentsRepartition():
+    herbivores = []
+    carnivores = []
+    superPredators = []
+    decomposeurs = []
+    for a in core.memory('agents'):
+        if not a.body.isDead:
+            if isinstance(a, HerbivoreAgent):
+                herbivores.append(a)
+            elif isinstance(a, CarnivoreAgent):
+                carnivores.append(a)
+            elif isinstance(a, SuperPredateurAgent):
+                superPredators.append(a)
+            elif isinstance(a, DecomposeurAgent):
+                decomposeurs.append(a)
+    print("Stats BEGIN -----------")
+    print("herbivores: " + str(int(len(herbivores) / len(core.memory('agents')) * 100)) + "%")
+    print("carnivores: " + str(int(len(carnivores) / len(core.memory('agents')) * 100)) + "%")
+    print("superPredators: " + str(int(len(superPredators) / len(core.memory('agents')) * 100)) + "%")
+    print("decomposeurs: " + str(int(len(decomposeurs) / len(core.memory('agents')) * 100)) + "%")
+    print("Stats END-----------")
 
 def run():
     core.cleanScreen()
 
+    if core.getMouseLeftClick():
+        showAgentsRepartition()
     # Display
     for item in core.memory("items"):
         item.show()
