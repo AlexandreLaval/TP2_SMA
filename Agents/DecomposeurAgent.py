@@ -21,15 +21,6 @@ class DecomposeurAgent(Agent):
         preys = self.filterPerception()
         self.computeForce(preys)
 
-        # if len(preys) == 0:
-        #     if len(predators) == 0:
-        #         target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
-        #         while target.length() == 0:
-        #             target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
-        #
-        #         target.scale_to_length(target.length())
-        #         self.body.acceleration += target
-
     def computeForce(self, preys):
         hunt = self.hunt(preys) * 1
 

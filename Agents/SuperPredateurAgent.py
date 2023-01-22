@@ -44,8 +44,14 @@ class SuperPredateurAgent(Agent):
 
 
     def hunt(self, preys):
-        steering = Vector2()
-        if len(preys) > 0:
-            prey = sorted(preys, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
-            steering = prey.position - self.body.position
-        return steering
+        cible = None
+        distanceCible = 10000
+        force = Vector2()
+        for p in preys:
+            if p.position.distance_to(self.body.position) < distanceCible:
+                cible = p
+                distanceCible = p.position.distance_to(self.body.position)
+
+        if cible is not None:
+            force = cible.position - self.body.position
+        return force

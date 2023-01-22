@@ -45,6 +45,7 @@ class CarnivoreAgent(Agent):
                 if not i.isDead:
                     predateurs.append(i)
         return preys, predateurs
+
     def hunt(self, preys):
         cible = None
         distanceCible = 10000
@@ -58,23 +59,10 @@ class CarnivoreAgent(Agent):
             force = cible.position - self.body.position
         return force
 
-        # steering = Vector2()
-        # if len(preys) > 0:
-        #     prey = sorted(preys, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
-        #     steering = prey.position - self.body.position
-        # return steering
-
     def flee(self, predators):
-        steering = Vector2()
+        force = Vector2()
         if len(predators) > 0:
             prey = sorted(predators, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
-            steering = prey.position + self.body.position
-        return steering
-
-    def symbiosis(self, symbiotics):
-        steering = Vector2()
-        if len(symbiotics) > 0:
-            prey = sorted(symbiotics, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
-            steering = prey.position - self.body.position
-        return steering
+            force = prey.position + self.body.position
+        return force
 

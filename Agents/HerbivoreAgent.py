@@ -64,24 +64,18 @@ class HerbivoreAgent(Agent):
 
         if cible is not None:
             force = cible.position - self.body.position
-
-
-        # steering = Vector2()
-        # if len(preys) > 0:
-        #     prey = sorted(preys, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
-        #     steering = prey.position - self.body.position
         return force
 
     def flee(self, predators):
-        steering = Vector2()
+        force = Vector2()
         if len(predators) > 0:
             prey = sorted(predators, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
-            steering = prey.position + self.body.position
-        return steering
+            force = prey.position + self.body.position
+        return force
 
     def symbiosis(self, symbiotics):
-        steering = Vector2()
+        force = Vector2()
         if len(symbiotics) > 0:
             prey = sorted(symbiotics, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
-            steering = prey.position - self.body.position
-        return steering
+            force = prey.position - self.body.position
+        return force
