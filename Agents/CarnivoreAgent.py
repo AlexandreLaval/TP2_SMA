@@ -65,4 +65,3 @@ class CarnivoreAgent(Agent):
             prey = sorted(predators, key=lambda x: x.position.distance_to(self.body.position), reverse=True)[0]
             force = prey.position + self.body.position
         return force
-

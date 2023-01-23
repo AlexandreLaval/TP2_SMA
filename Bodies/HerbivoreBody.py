@@ -10,7 +10,7 @@ from Bodies.Jauge import Jauge
 
 
 class HerbivoreBody(Body):
-    def __init__(self, pos = None):
+    def __init__(self, pos=None):
         super().__init__(pos)
         self.fustrum = Fustrum(110, self)
         self.color = (0, 255, 0)
@@ -39,7 +39,6 @@ class HerbivoreBody(Body):
         else:
             core.Draw.circle((211, 211, 211), self.position, self.bodySize)
 
-
     def reproduction(self):
         core.memory('agents').append(
-            HerbivoreAgent(HerbivoreBody(self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
+            HerbivoreAgent(HerbivoreBody(self.position + Vector2(random.randint(-1, 1), random.randint(-1, 1)))))

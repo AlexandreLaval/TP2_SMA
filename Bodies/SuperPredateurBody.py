@@ -3,23 +3,23 @@ import random
 from pygame import Vector2
 
 import core
-
 from Agents.SuperPredateurAgent import SuperPredateurAgent
 from Bodies.Body import Body
 from Bodies.Jauge import Jauge
 
 
 class SuperPredateurBody(Body):
-    def __init__(self, pos = None):
+    def __init__(self, pos=None):
         super().__init__(pos)
         self.color = (0, 0, 255)
         self.bodySize = 14
         self.jaugeFaim = Jauge(random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxFaim'][0],
                                               core.memory("scenario")['SuperPredateur']['parametres']['MaxFaim'][1]),
                                1)
-        self.jaugeFatigue = Jauge(random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxFatigue'][0],
-                                                 core.memory("scenario")['SuperPredateur']['parametres']['MaxFatigue'][1]),
-                                  1)
+        self.jaugeFatigue = Jauge(
+            random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxFatigue'][0],
+                           core.memory("scenario")['SuperPredateur']['parametres']['MaxFatigue'][1]),
+            1)
         self.jaugeReproduction = Jauge(
             random.randint(core.memory("scenario")['SuperPredateur']['parametres']['MaxReproduction'][0],
                            core.memory("scenario")['SuperPredateur']['parametres']['MaxReproduction'][1]),
@@ -38,6 +38,8 @@ class SuperPredateurBody(Body):
             core.Draw.circle(self.color, self.position, self.bodySize)
         else:
             core.Draw.circle((211, 211, 211), self.position, self.bodySize)
+
     def reproduction(self):
         core.memory('agents').append(
-            SuperPredateurAgent(SuperPredateurBody(self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
+            SuperPredateurAgent(
+                SuperPredateurBody(self.position + Vector2(random.randint(-1, 1), random.randint(-1, 1)))))

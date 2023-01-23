@@ -24,7 +24,7 @@ class SuperPredateurAgent(Agent):
     def computeForce(self, preys):
         hunt = self.hunt(preys) * 1
 
-        if  hunt == (0, 0):
+        if hunt == (0, 0):
             target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
             while target.length() == 0:
                 target = Vector2(random.randint(-1, 1), random.randint(-1, 1))
@@ -41,7 +41,6 @@ class SuperPredateurAgent(Agent):
                 if not i.isDead:
                     proies.append(i)
         return proies
-
 
     def hunt(self, preys):
         cible = None

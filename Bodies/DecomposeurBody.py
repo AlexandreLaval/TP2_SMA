@@ -35,8 +35,8 @@ class DecomposeurBody(Body):
                 core.Draw.text(self.color, "Dodo", Vector2(self.position.x - 10, self.position.y - 30), taille=15)
             core.Draw.circle(self.color, self.position, self.bodySize)
         else:
-            core.Draw.circle((211,211,211), self.position, self.bodySize)
+            core.Draw.circle((211, 211, 211), self.position, self.bodySize)
 
     def reproduction(self):
         core.memory('agents').append(
-            DecomposeurAgent(DecomposeurBody(self.position+Vector2(random.randint(-1, 1), random.randint(-1, 1)))))
+            DecomposeurAgent(DecomposeurBody(self.position + Vector2(random.randint(-1, 1), random.randint(-1, 1)))))

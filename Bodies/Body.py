@@ -5,7 +5,6 @@ from pygame import Vector2
 
 import core
 from Bodies.Fustrum import Fustrum
-from Bodies.Jauge import Jauge
 
 
 class Body(object):
@@ -31,7 +30,8 @@ class Body(object):
         self.maxAcc = None
 
     def quantumGenetetic(self):
-        return (self.maxAcc*10) + (self.maxSpeed*10) + (100 - self.jaugeReproduction.max) + (self.esperance*3) + self.jaugeFatigue.max + self.jaugeFaim.max
+        return (self.maxAcc * 10) + (self.maxSpeed * 10) + (100 - self.jaugeReproduction.max) + (
+                    self.esperance * 3) + self.jaugeFatigue.max + self.jaugeFaim.max
 
     def update(self):
         if not self.isDead:
@@ -45,10 +45,13 @@ class Body(object):
 
                 self.acceleration = Vector2(0, 0)
                 self.position += self.velocity
-                self.checkAll()
-                self.jaugeReproduction.evolution()
-                self.jaugeFaim.evolution()
-                self.jaugeFatigue.evolution()
+            else:
+                self.velocity = Vector2()
+                self.acceleration = Vector2()
+            self.checkAll()
+            self.jaugeReproduction.evolution()
+            self.jaugeFaim.evolution()
+            self.jaugeFatigue.evolution()
         else:
             self.velocity = Vector2()
             self.acceleration = Vector2()

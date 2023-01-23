@@ -12,10 +12,11 @@ class DecomposeurAgent(Agent):
         self.fustrum = Fustrum(500, self)
 
     def doMange(self, proie):
-        if(hasattr(proie, 'body')):
+        if (hasattr(proie, 'body')):
             if hasattr(proie.body, 'isDead'):
                 if proie.body.isDead:
                     return True
+
     #
     def update(self):
         preys = self.filterPerception()
@@ -41,7 +42,6 @@ class DecomposeurAgent(Agent):
                 if i.isDead:
                     preys.append(i)
         return preys
-
 
     def hunt(self, preys):
         cible = None

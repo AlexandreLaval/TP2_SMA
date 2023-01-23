@@ -112,12 +112,14 @@ def getBestIndividual():
             bestAgent = a
     return bestAgent
 
+
 def showBestIndividual():
     agent = getBestIndividual()
     print("Le meilleur individu est -----------")
-    print("un agent de type : " + str(agent.__class__.__name__ ))
+    print("un agent de type : " + str(agent.__class__.__name__))
     print("avec un core génétique de : " + str(int(agent.body.quantumGenetetic())))
     print("-----------")
+
 
 def showAgentsRepartition():
     herbivores = []
@@ -142,7 +144,6 @@ def showAgentsRepartition():
     print("Stats END-----------")
 
 
-history_time = []
 history_data = {"Herbivores": [], "Vegetaux": [], "Carnivores": [], "SuperPredateurs": [], "Decomposeurs": [],
                 'Morts': []}
 
@@ -150,8 +151,6 @@ history_data = {"Herbivores": [], "Vegetaux": [], "Carnivores": [], "SuperPredat
 def drawEvolution():
     while True:
         global history_data
-        global history_time
-
         data = {'Herbivores': 0, 'Vegetaux': 0, 'Carnivores': 0, 'SuperPredateurs': 0, 'Decomposeurs': 0, 'Morts': 0}
 
         for a in core.memory("agents"):
@@ -170,31 +169,34 @@ def drawEvolution():
             data["Vegetaux"] += 1
 
         plt.cla()
-        current_time = pygame.time.get_ticks() / 1000
-        history_time.append(current_time)
         for key in history_data.keys():
             history_data[key].append(data[key])
             if key == "Morts":
-                plt.plot(history_time, history_data[key], 'grey', label=key)
+                plt.bar(key, data[key], color='grey', label=key)
             elif key == "Herbivores":
-                plt.plot(history_time, history_data[key], 'green', label=key)
+                plt.bar(key, data[key], color='green', label=key)
             elif key == "Carnivores":
-                plt.plot(history_time, history_data[key], 'red', label=key)
+                plt.bar(key, data[key], color='red', label=key)
             elif key == "SuperPredateurs":
-                plt.plot(history_time, history_data[key], 'blue', label=key)
+                plt.bar(key, data[key], color='blue', label=key)
             elif key == "Decomposeurs":
-                plt.plot(history_time, history_data[key], 'brown', label=key)
+                plt.bar(key, data[key], color='brown', label=key)
             elif key == "Vegetaux":
-                plt.plot(history_time, history_data[key], 'olive', label=key)
+                plt.bar(key, data[key], color='olive', label=key)
 
-        plt.xlabel("Temps en secondes")
-        plt.ylabel("Nombre d\'individu")
-        plt.title("Evolution du nombre d\'individu en fonction du temps")
-        plt.legend(loc="center left")
-        plt.ion()
+        plt.ylabel("Nombre d'individu")
+        plt.title("Evolution du nombre d'individu lors de la simulation")
+        plt.xticks(rotation=45)
         plt.draw()
         plt.show()
         plt.pause(0.001)
+
+
+def stopExecution():
+    print(str(time.time() - core.memory("timer")))
+    print(str(core.memory("scenario")['dureeSimu']))
+    if time.time() - core.memory("timer") > float(core.memory("scenario")['dureeSimu']):
+        exit()
 
 
 def run():
@@ -223,6 +225,7 @@ def run():
         applyDecision(agent)
 
     updateEnv()
+    stopExecution()
 
 
 core.main(setup, run)

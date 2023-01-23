@@ -1,7 +1,5 @@
 import random
 
-from pygame import Vector2
-
 
 class Agent(object):
     def __init__(self, body):
