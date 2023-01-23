@@ -12,20 +12,20 @@
                6
             ],
             "MaxFaim": [
-               5,
-               20
+               10,
+               30
             ],
             "MaxFatigue": [
-               5,
-               50
+               10,
+               40
             ],
             "MaxReproduction": [
-               20,
-               50
+               35,
+               45
             ],
             "esperance": [
-               20,
-               100
+               40,
+               50
             ]
          }
    },
@@ -33,66 +33,8 @@
          "nb": 20,
          "parametres": {
             "vitesseMax": [
-               3,
-               7
-            ],
-            "accelerationMax": [
-               1,
-               1
-            ],
-            "MaxFaim": [
-               10,
-               20
-            ],
-            "MaxFatigue": [
-               5,
-               30
-            ],
-            "MaxReproduction": [
-               10,
-               40
-            ],
-            "esperance": [
-               20,
-               100
-            ]
-         }
-      },
-    "Vegetal": {
-      "nb": 30,
-      "parametres": {
-            "vitesseMax": [
-               5,
-               5
-            ],
-            "accelerationMax": [
-               1,
-               1
-            ],
-            "MaxFaim": [
-               10,
-               20
-            ],
-            "MaxFatigue": [
-               5,
-               30
-            ],
-            "MaxReproduction": [
-               20,
-               20
-            ],
-            "esperance": [
-               100,
-               200
-            ]
-         }
-   },
-    "Carnivore": {
-      "nb": 7,
-      "parametres": {
-            "vitesseMax": [
-               4,
-               10
+               2,
+               6
             ],
             "accelerationMax": [
                1,
@@ -100,20 +42,51 @@
             ],
             "MaxFaim": [
                20,
-               40
+               30
             ],
             "MaxFatigue": [
                10,
-               20
-
+               25
             ],
             "MaxReproduction": [
-               10,
-               20
+               15,
+               35
             ],
             "esperance": [
+               60,
+               120
+            ]
+         }
+      },
+    "Vegetal": {
+      "nb": 30
+   },
+    "Carnivore": {
+      "nb": 7,
+      "parametres": {
+            "vitesseMax": [
+               4,
+               8
+            ],
+            "accelerationMax": [
+               2,
+               5
+            ],
+            "MaxFaim": [
+               25,
+               35
+            ],
+            "MaxFatigue": [
                20,
-               100
+               30
+            ],
+            "MaxReproduction": [
+               20,
+               30
+            ],
+            "esperance": [
+               30,
+               70
             ]
          }
    },
@@ -125,24 +98,24 @@
          5
        ],
        "accelerationMax": [
-         3,
-         3
+         2,
+         4
        ],
        "MaxFaim": [
-         20,
-         40
+         25,
+         45
        ],
        "MaxFatigue": [
          30,
          45
        ],
        "MaxReproduction": [
-         50,
-         60
+         55,
+         65
        ],
        "esperance": [
-         20,
-         100
+         30,
+         75
        ]
      }
    }
